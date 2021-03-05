@@ -4,8 +4,28 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+const hearts = document.querySelectorAll('.like-glyph')
 
-
+for (let i = 0; i < hearts.length; i++) {
+  let heart = hearts[i]
+  
+  heart.addEventListener('click', () => {
+    mimicServerCall().then(function(response) {
+      heart.innerHTML = FULL_HEART
+      heart.classList.add('activated-heart')
+    }).catch(function(error) {
+      heart.innerHTML = EMPTY_HEART
+      heart.classList.remove('activated-heart')
+      const h2Error = document.querySelector('#modal h2')
+      h2Error.innerText = error
+      hidden.classList.remove('hidden')
+      setTimeout(hideHidden, 5000)
+      function hideHidden() {
+        hidden.classList.add('hidden')
+      }
+    })
+  })
+}
 
 //------------------------------------------------------------------------------
 // Ignore after this point. Used only for demo purposes
